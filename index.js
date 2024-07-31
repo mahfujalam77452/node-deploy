@@ -1,7 +1,7 @@
 
 //4UXW48MyKnav@*!
-require('dotenv').config()
-
+require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
@@ -10,7 +10,7 @@ path.resolve(__dirname,'routes','user.js')
 const userRouter = require(path.resolve(__dirname,'routes','user.js'))
 const server = express();
 const {Schema} = mongoose;
-const path = require('path');
+
 
 //Schema
 
