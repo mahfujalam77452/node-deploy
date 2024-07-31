@@ -6,7 +6,6 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const productRouter = require(path.resolve(__dirname,'routes','product.js'))
-path.resolve(__dirname,'routes','user.js')
 const userRouter = require(path.resolve(__dirname,'routes','user.js'))
 const server = express();
 const {Schema} = mongoose;
