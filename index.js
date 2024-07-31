@@ -1,45 +1,40 @@
-
-//4UXW48MyKnav@*!
 require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const productRouter = require(path.resolve(__dirname,'routes','product.js'))
-const userRouter = require(path.resolve(__dirname,'routes','user.js'))
+const productRouter = require(path.resolve(__dirname, 'routes', 'product.js'));
+const userRouter = require(path.resolve(__dirname, 'routes', 'user.js'));
 const server = express();
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
+// Schema
 
-//Schema
+// body parser
 
-
-
-//body parser
-
-//db connection
+// db connection
 main().catch(err => console.log(err));
 
 async function main() {
- 
   await mongoose.connect(process.env.MONGO_URL);
-  console.log('database connected')
+  console.log('database connected');
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
 
 server.use(express.json());
-server.use(morgan('default'));
-server.use(express.static(path.resolve(__dirname,process.env.PUBLIC_DIR)))
-console.log(process.env.DB_PASSWORD)
+server.use(morgan('combined')); // Updated to use 'combined' format
+const publicDir = process.env.PUBLIC_DIR || 'public';
+server.use(express.static(path.resolve(__dirname, publicDir)));
+console.log(process.env.DB_PASSWORD);
+
 // server.use( (req,res,next) => {
 //     console.log(req.get('User-Agent'),req.method,req.ip,req.hostname)
 //     next();
 // } )
 
-
 // const auth = (req,res,next) => {
 //     //console.log(req.query)
-    
+
 //     //  if(req.body.password === '123'){
 //     //     next();
 //     //  }
@@ -49,84 +44,26 @@ console.log(process.env.DB_PASSWORD)
 //     next();
 // }
 
-// MVC - Model View Controler 
+// MVC - Model View Controller 
 
-server.use('/products',productRouter.productRouter)
-server.use('/users',userRouter.userRouter)
-server.use('*',(req,res) => {
-  res.sendFile(path.resolve(__dirname,'build','index.html'));
-})
-//Create POST / products C R U D
-
-
-
-server.get('/demo',(req,res) => {
-   // res.status(201).send('<h1>hello</h1>')
-   // res.sendStatus(404)
-   // res.json(products)
-    //res.send('hello');
-    //res.sendFile('C:/Users/DELL/node/index.html')
-})
-
-
-
-
-
-
-
-
-
-
-server.listen(process.env.PORT,() => {
-    console.log('server started')
+server.use('/products', productRouter.productRouter);
+server.use('/users', userRouter.userRouter);
+server.use('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
+// Create POST / products C R U D
 
+server.get('/demo', (req, res) => {
+  // res.status(201).send('<h1>hello</h1>')
+  // res.sendStatus(404)
+  // res.json(products)
+  //res.send('hello');
+  //res.sendFile('C:/Users/DELL/node/index.html')
+})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+server.listen(process.env.PORT, () => {
+  console.log('server started');
+});
 
 // const server = http.createServer(
 //     (req,res) => {
@@ -153,7 +90,7 @@ server.listen(process.env.PORT,() => {
 //         //         res.end(JSON.stringify(data));
 //         //         break;
 //         //     case '/product':
-                
+
 //         //         break;
 
 //         //     default:
